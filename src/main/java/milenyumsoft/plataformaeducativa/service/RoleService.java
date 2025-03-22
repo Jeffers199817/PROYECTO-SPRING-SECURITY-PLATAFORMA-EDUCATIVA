@@ -1,6 +1,8 @@
 package milenyumsoft.plataformaeducativa.service;
 
 import milenyumsoft.plataformaeducativa.modelo.Role;
+import milenyumsoft.plataformaeducativa.repository.IRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,23 +10,32 @@ import java.util.Optional;
 
 @Service
 public class RoleService implements IRoleService{
+
+    @Autowired
+    private IRoleRepository roleRepository;
+
     @Override
     public List<Role> findAll() {
-        return List.of();
+        return roleRepository.findAll();
     }
 
     @Override
     public Optional<Role> findById(Long id) {
-        return Optional.empty();
+        return roleRepository.findById(id);
     }
 
     @Override
     public Role save(Role role) {
-        return null;
+        return roleRepository.save(role);
     }
 
     @Override
     public void deleteById(Long id) {
+            roleRepository.deleteById(id);
+    }
 
+    @Override
+    public Role update(Role role){
+        return  roleRepository.save(role);
     }
 }
