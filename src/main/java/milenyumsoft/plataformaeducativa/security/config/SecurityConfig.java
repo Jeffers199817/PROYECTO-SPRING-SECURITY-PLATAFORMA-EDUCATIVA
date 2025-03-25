@@ -2,8 +2,10 @@ package milenyumsoft.plataformaeducativa.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -16,6 +18,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
+        /*UTILIAMOS SOLO AUTORIZACI;ON POR ME DIO DE RUTA
         return httpSecurity
                 .authorizeHttpRequests()
                 .requestMatchers("/holanoseg").permitAll()
@@ -27,7 +30,7 @@ public class SecurityConfig {
                 .and()
                 .build();
 
-
+                //CUANDO UTILIZASMOS LOS ROLES A NIVEL GLOBAL
                 /*
                 .csrf(csrf->csrf.disable())
                 .httpBasic(Customizer.withDefaults())
@@ -39,6 +42,11 @@ public class SecurityConfig {
                     http.anyRequest().denyAll();
                 })
                 .build();*/
+        return httpSecurity
+                .csrf(csrf->csrf.disable())
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement((session)-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
 
     }
 }
