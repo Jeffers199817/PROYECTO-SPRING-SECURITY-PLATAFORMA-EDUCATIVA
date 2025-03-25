@@ -1,6 +1,4 @@
 package milenyumsoft.plataformaeducativa.security.config;
-
-import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+
 public class SecurityConfig {
 
 
