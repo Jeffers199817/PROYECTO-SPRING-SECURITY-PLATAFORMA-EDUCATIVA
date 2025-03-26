@@ -36,6 +36,20 @@ public class PermissionService implements IPermissionService{
 
     @Override
     public Permission update(Permission permission) {
-        return permissionRepository.save(permission);
+
+          Optional<Permission> permission1=  this.findById(permission.getId());
+
+          if(permission1.isPresent()) {
+             Permission permi= permission1.get();
+             permi.setPermissionName(permission.getPermissionName());
+
+
+              return permissionRepository.save(permi);
+
+          }else {
+              throw new RuntimeException("Permission with ID" + permission.getId() + "no existe");
+          }
+
+
     }
 }

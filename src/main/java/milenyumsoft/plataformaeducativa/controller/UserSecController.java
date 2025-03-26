@@ -19,8 +19,8 @@ import java.util.Set;
 import static org.springframework.security.authorization.AuthorityReactiveAuthorizationManager.hasRole;
 
 @RestController
-@RequestMapping( "/api/users/")
-@PreAuthorize("denyAll()")
+@RequestMapping( "/api/users")
+//@PreAuthorize("denyAll()")
 public class UserSecController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class UserSecController {
 
 
     @GetMapping("/todo")
-    @PreAuthorize("hasAuthority('READ')")
+   // @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<List<UserSec>> getAllUsers(){
 
         List<UserSec> users = userSecService.findAll();
@@ -39,14 +39,14 @@ public class UserSecController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('READ')")
+  //  @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<UserSec> userSecFindId(@PathVariable Long id){
         Optional<UserSec> user= userSecService.findById(id);
         return user.map(ResponseEntity::ok).orElseGet(()->ResponseEntity.notFound().build());
     }
 
     @PostMapping("/crear")
-    @PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserSec> createUser(@RequestBody UserSec userSec) {
 
         //1. Crear un lista de roles y un obtejo Role
@@ -54,27 +54,29 @@ public class UserSecController {
         Role readRole;
 
         //2. encriptar la contrase ña que se optiene del usuario
-
+        System.out.println("1");
         userSec.setPassword(userSecService.encriptPassword(userSec.getPassword()));
-
-
+        System.out.println( "sigo en el 1231bucle ");
         // 3. Recuperamos la permission por su ID
 
-        for (Role rol : userSec.getRoleList()) {
-
-            readRole = roleService.findById(rol.getId()).orElse(null);
-
+        for (Role role : userSec.getRoleList()){
+            readRole = roleService.findById(role.getId()).orElse(null);
             if (readRole != null) {
+                //si encuentro, guardo en la lista
                 roleList.add(readRole);
             }
         }
+        System.out.println("2");
         if (!roleList.isEmpty()) {
 
             userSec.setRoleList(roleList);
+            System.out.println("estoy aqui je");
             UserSec newUser = userSecService.save(userSec);
+
             return ResponseEntity.ok(newUser);
 
         }
+        System.out.println("3");
         return null;
 
     }

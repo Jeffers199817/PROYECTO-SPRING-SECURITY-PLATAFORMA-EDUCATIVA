@@ -1,5 +1,6 @@
 package milenyumsoft.plataformaeducativa.service;
 
+import milenyumsoft.plataformaeducativa.dto.RoleDTO;
 import milenyumsoft.plataformaeducativa.modelo.Role;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface IRoleService {
     Optional<Role> findById(Long id);
     Role save(Role role);
     void deleteById(Long id);
-    Role update(Role role);
+    String update(RoleDTO roleDTO);
 }

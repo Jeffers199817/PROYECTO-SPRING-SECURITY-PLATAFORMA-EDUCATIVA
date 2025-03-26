@@ -1,5 +1,6 @@
 package milenyumsoft.plataformaeducativa.controller;
 
+import milenyumsoft.plataformaeducativa.dto.RoleDTO;
 import milenyumsoft.plataformaeducativa.modelo.Permission;
 import milenyumsoft.plataformaeducativa.modelo.Role;
 import milenyumsoft.plataformaeducativa.service.IPermissionService;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping( "/api/rol")
-@PreAuthorize("denyAll()")
+//@PreAuthorize("denyAll()")
 public class RoleController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class RoleController {
 
 
     @GetMapping("/todo")
-    @PreAuthorize("hasAuthority('READ')")
+    //@PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<List<Role>> findRoleAll(){
         List<Role> listaRoles = roleService.findAll();
         return ResponseEntity.ok(listaRoles);
@@ -33,7 +34,7 @@ public class RoleController {
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('READ')")
+    //@PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<Role> findRolId(@PathVariable Long id){
 
        Optional<Role> role = roleService.findById(id);
@@ -41,8 +42,8 @@ public class RoleController {
         return  role.map(ResponseEntity::ok).orElseGet(()->ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/crear")
-    @PreAuthorize("hasAuthority('READ')")
+    @PostMapping("/crear")
+   // @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<Role> createRole(@RequestBody Role role) {
 /*
         Set<Permission> listaPermisos = new HashSet<>();
@@ -62,13 +63,13 @@ public class RoleController {
 
         //VAMOS UTILIZAR FUNCIONES LAMDAS
 
-        Set<Permission> listaPermisos = role.getPermissionsList().stream()
+        Set<Permission> listaPermisos = role.getPermissionList().stream()
                 .map(permission -> permissionService.findById(permission.getId()).orElse(null))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
 
         if (listaPermisos != null){
-            role.setPermissionsList(listaPermisos);
+            role.setPermissionList(listaPermisos);
         Role newRole = roleService.save(role);
         return ResponseEntity.ok(newRole);
 
@@ -78,7 +79,10 @@ public class RoleController {
 
     }
 
-
+    @PutMapping("/actualizar")
+    public ResponseEntity<String> updateRole(@RequestBody RoleDTO roleDTO){
+        return ResponseEntity.ok(roleService.update(roleDTO));
+    }
 
 
 

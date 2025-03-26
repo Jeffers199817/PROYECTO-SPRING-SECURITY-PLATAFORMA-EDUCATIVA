@@ -29,6 +29,7 @@ public class UserSecService implements IUserSecService{
 
     @Override
     public UserSec save(UserSec userSec) {
+        System.out.println("llleg aqui" + userSec);
         return userSecRepository.save(userSec);
     }
 

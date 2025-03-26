@@ -40,7 +40,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
         //4. Pasar a grantedauthority a los permissions
 
         userSec.getRoleList().stream()
-                .flatMap(role->role.getPermissionsList().stream())
+                .flatMap(role->role.getPermissionList().stream())
                 .forEach(permission ->authorityList.add(new SimpleGrantedAuthority(permission.getPermissionName())) );
 
         //5. retornamos el usaurio en formato spring security con loedd datos de nuestro usersec
