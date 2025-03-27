@@ -81,6 +81,11 @@ public class UserSecController {
 
     }
 
+    public ResponseEntity<UserSec> updateUserSec(@PathVariable Long id, @RequestBody UserSec){
+
+
+    }
+
 
 
 }
