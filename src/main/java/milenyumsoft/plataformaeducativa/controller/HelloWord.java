@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/interes")
 public class HelloWord {
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAuthority('READ')")
     @GetMapping("/holaseg")
     public String seguridadSec(){
 
