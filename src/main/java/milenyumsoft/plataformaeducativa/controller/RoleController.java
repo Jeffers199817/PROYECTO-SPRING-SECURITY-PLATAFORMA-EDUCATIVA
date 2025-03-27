@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping( "/api/rol")
-//@PreAuthorize("denyAll()")
+@PreAuthorize("hasRole('ADMIN')")
 public class RoleController {
 
     @Autowired

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-//@PreAuthorize("denyAll()")
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping ( "/api/permission")
 public class PermissionController {
 

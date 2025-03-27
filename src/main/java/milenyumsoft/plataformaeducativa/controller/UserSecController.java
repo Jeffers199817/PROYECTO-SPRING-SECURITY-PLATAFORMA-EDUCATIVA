@@ -20,7 +20,7 @@ import static org.springframework.security.authorization.AuthorityReactiveAuthor
 
 @RestController
 @RequestMapping( "/api/users")
-//@PreAuthorize("denyAll()")
+@PreAuthorize("hasRole('ADMIN')")
 public class UserSecController {
 
     @Autowired

@@ -63,6 +63,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
                 contex.setAuthentication(authentication);
 
                 SecurityContextHolder.setContext(contex);
+
             }catch (JWTVerificationException e){
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
                 response.setContentType("application/json");
