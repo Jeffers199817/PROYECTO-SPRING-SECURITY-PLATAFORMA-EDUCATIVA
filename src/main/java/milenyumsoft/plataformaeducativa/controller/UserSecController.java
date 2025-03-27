@@ -90,6 +90,7 @@ public class UserSecController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserSec> updateUserSec(@PathVariable Long id, @RequestBody UserUpdateRequestDTO userUpdateRequestDTO) {
 
         //1. Verificar si el usuario existe
