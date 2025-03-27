@@ -1,13 +1,19 @@
 package milenyumsoft.plataformaeducativa.controller;
 
+import milenyumsoft.plataformaeducativa.dto.UserUpdateRequestDTO;
 import milenyumsoft.plataformaeducativa.modelo.Role;
 import milenyumsoft.plataformaeducativa.modelo.UserSec;
 import milenyumsoft.plataformaeducativa.service.IRoleService;
 import milenyumsoft.plataformaeducativa.service.IUserSecService;
+import milenyumsoft.plataformaeducativa.service.UserDetailsServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +33,8 @@ public class UserSecController {
     private IUserSecService userSecService;
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private UserDetailsServiceImp userDetailsServiceImp;
 
 
 
@@ -81,11 +89,63 @@ public class UserSecController {
 
     }
 
-    public ResponseEntity<UserSec> updateUserSec(@PathVariable Long id, @RequestBody UserSec){
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserSec> updateUserSec(@PathVariable Long id, @RequestBody UserUpdateRequestDTO userUpdateRequestDTO) {
 
+        //1. Verificar si el usuario existe
+
+        Optional<UserSec> existingUserOpt = userSecService.findById(id);
+
+        if (existingUserOpt.isEmpty()) {
+            return ResponseEntity.notFound().build(); //404 si no se encuentra
+        }
+
+        //2. Obtener el usuario existente
+
+        UserSec userExistente = existingUserOpt.get();
+
+        //3. Verificar las credenciales actuales( username y olPassword
+
+        try {
+            Authentication authentication = userDetailsServiceImp.authenticate(userExistente.getUsername(), userUpdateRequestDTO.getOldPassword());
+
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        //4.- Actualizar los compos basicos si
+
+        userExistente.setUsername(userUpdateRequestDTO.getUsername());
+
+        if (userUpdateRequestDTO.getNewPassword() != null && !userUpdateRequestDTO.getNewPassword().isEmpty()) {
+
+            userExistente.setPassword(userSecService.encriptPassword(userUpdateRequestDTO.getNewPassword()));
+        }
+
+        //5.Manejar los lista de roles
+
+        Set<Role> roleList = new HashSet<>();
+        Role readRole;
+
+        if (userUpdateRequestDTO.getRoleList() != null && !userUpdateRequestDTO.getRoleList().isEmpty()) {
+
+            for (Role role : userUpdateRequestDTO.getRoleList()) {
+                readRole = roleService.findById(role.getId()).orElse(null);
+
+                if (readRole != null) {
+                    roleList.add(readRole);
+                }
+            }
+
+            if (!roleList.isEmpty()) {
+                userExistente.setRoleList(roleList);
+            }
+
+        }
+
+        //6.- Guardar los cambios en la base de datos
+
+        UserSec usuarioUpdate = userSecService.save(userExistente);
+        return ResponseEntity.ok(usuarioUpdate);
 
     }
-
-
-
 }
