@@ -5,6 +5,8 @@ import milenyumsoft.plataformaeducativa.modelo.Curso;
 import milenyumsoft.plataformaeducativa.modelo.Estudiante;
 import milenyumsoft.plataformaeducativa.modelo.Profesor;
 import milenyumsoft.plataformaeducativa.repository.ICursoRepository;
+import milenyumsoft.plataformaeducativa.repository.IEstudianteRepository;
+import milenyumsoft.plataformaeducativa.repository.IProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class CursoService implements ICursoService {
     @Autowired
     private IProfersorService profersorService;
     @Autowired
-    private IEstudianteService estudianteService;
+    private IEstudianteRepository estudianteService;
 
     @Override
     public List<Curso> findAllCurso() {
@@ -60,19 +62,24 @@ public class CursoService implements ICursoService {
 
             newCurso.setNombre(cursodto.getNombre());
             newCurso.setDescripcion(cursodto.getDescripcion());
+            System.out.println("llegue aqui ");
+            System.out.println("profesor id: " + cursodto.getProfesorId());
 
             Optional<Profesor> profesor = profersorService.findByIdProfesor(cursodto.getProfesorId());
             Profesor profesorExistente = profesor.get();
 
-            Set<Estudiante> listEstudiante = cursodto.getEstuantesId()
+            Set<Estudiante> listEstudiante = cursodto.getEstudiantesId()
                     .stream()
-                    .map(estudianteId-> estudianteService.findByIdEstudiante(estudianteId))
+                    .map(estudianteId-> estudianteService.findById(estudianteId))
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .collect(Collectors.toSet());
 
             newCurso.setProfesor(profesorExistente);
             newCurso.setEstudianteList(listEstudiante);
+            System.out.println("llegue con list: " + listEstudiante);
+
+            cursoRepository.save(newCurso);
 
             return newCurso;
 

@@ -22,8 +22,8 @@ public class CursoController {
     @Autowired
     private ICursoService cursoService;
 
-    @GetMapping("/traer/id")
-    public ResponseEntity<Curso> findByIdCurso(@PathVariable Long id, HttpServletResponse httpServletResponse){
+    @GetMapping("/traer/{id}")
+    public ResponseEntity<Curso> findByIdCurso(@PathVariable Long id){
 
         Optional<Curso> cursoExistente=  cursoService.findByIdCusro(id);
         if(!cursoExistente.isEmpty()){
@@ -34,7 +34,7 @@ public class CursoController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Curso> crearCurso(CursoDTO cursoDTO){
+    public ResponseEntity<Curso> crearCurso(@RequestBody CursoDTO cursoDTO){
      return ResponseEntity.ok(cursoService.createCurso(cursoDTO));
     }
 }

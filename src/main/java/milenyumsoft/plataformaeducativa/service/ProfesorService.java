@@ -45,7 +45,7 @@ public class ProfesorService implements IProfersorService {
 
            return profesor;
         }else {
-            return null;
+            throw new RuntimeException("El profesor no existe, ingrese un profesor válido.");
         }
 
     }

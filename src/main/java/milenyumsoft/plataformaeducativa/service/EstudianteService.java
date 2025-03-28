@@ -4,6 +4,7 @@ import milenyumsoft.plataformaeducativa.dto.EstudianteDTO;
 import milenyumsoft.plataformaeducativa.modelo.Curso;
 import milenyumsoft.plataformaeducativa.modelo.Estudiante;
 import milenyumsoft.plataformaeducativa.modelo.Role;
+import milenyumsoft.plataformaeducativa.repository.ICursoRepository;
 import milenyumsoft.plataformaeducativa.repository.IEstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class EstudianteService implements IEstudianteService {
     @Autowired
     private IRoleService roleService;
     @Autowired
-    private ICursoService cursoService;
+    private ICursoRepository cursoService;
 
     @Override
     public Optional<Estudiante> findByIdEstudiante(Long id) {
@@ -70,7 +71,7 @@ public class EstudianteService implements IEstudianteService {
 
          Set<Curso> listCurso = estudianteDTO.getCursosId()
                  .stream()
-                 .map(cursoId -> cursoService.findByIdCusro(cursoId))
+                 .map(cursoId -> cursoService.findById(cursoId))
                  .filter(Optional::isPresent)
                  .map(Optional::get)
                  .collect(Collectors.toSet());
