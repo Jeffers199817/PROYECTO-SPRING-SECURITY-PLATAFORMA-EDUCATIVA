@@ -1,5 +1,6 @@
 package milenyumsoft.plataformaeducativa.service;
 
+import milenyumsoft.plataformaeducativa.dto.ProfesorDTO;
 import milenyumsoft.plataformaeducativa.modelo.Profesor;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface IProfersorService {
 
     List<Profesor> findAllProfersor();
     Optional<Profesor> findByIdProfesor(Long id);
-    Profesor createProfesor(Profesor profesor);
+    Profesor createProfesor(ProfesorDTO profesorDTO);
     String deleteProfesor(Long id);
     Profesor updateProfesor(Long id, Profesor profesor);
 }

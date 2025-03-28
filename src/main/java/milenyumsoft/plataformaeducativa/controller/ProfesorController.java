@@ -1,5 +1,6 @@
 package milenyumsoft.plataformaeducativa.controller;
 
+import milenyumsoft.plataformaeducativa.dto.ProfesorDTO;
 import milenyumsoft.plataformaeducativa.modelo.Profesor;
 import milenyumsoft.plataformaeducativa.service.IProfersorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class ProfesorController {
     private IProfersorService profersorService;
 
     @PostMapping("/crear")
-    public ResponseEntity<Profesor> createProfesor(@RequestBody Profesor profesor){
+    public ResponseEntity<Profesor> createProfesor(@RequestBody ProfesorDTO profesorDTO){
 
-        Profesor newProfesor = profersorService.createProfesor(profesor);
+        Profesor newProfesor = profersorService.createProfesor(profesorDTO);
 
         return  ResponseEntity.ok(newProfesor);
     }

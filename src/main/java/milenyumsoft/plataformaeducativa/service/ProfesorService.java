@@ -1,5 +1,6 @@
 package milenyumsoft.plataformaeducativa.service;
 
+import milenyumsoft.plataformaeducativa.dto.ProfesorDTO;
 import milenyumsoft.plataformaeducativa.modelo.Profesor;
 import milenyumsoft.plataformaeducativa.repository.IProfesorRepository;
 import milenyumsoft.plataformaeducativa.repository.IUserSecRepository;
@@ -40,11 +41,12 @@ public class ProfesorService implements IProfersorService {
     }
 
     @Override
-    public Profesor createProfesor(Profesor profesor) {
+    public Profesor createProfesor(ProfesorDTO profesorDTO) {
 
-       Profesor profesorExistente= profesorRepository.traerProfesorCodigo(profesor.getCodigoProfesor());
+       Profesor profesorExistente= profesorRepository.traerProfesorCodigo(profesorDTO.getCodigoProfesor());
        if(profesorExistente == null){
-           System.out.println("Llegue aquí.");
+
+
          return    profesorRepository.save(profesor);
        }else{
            throw new RuntimeException("Profesor con ese código ya existe, no se puede crear.");
