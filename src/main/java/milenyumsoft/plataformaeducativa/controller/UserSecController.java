@@ -149,4 +149,13 @@ public class UserSecController {
         return ResponseEntity.ok(usuarioUpdate);
 
     }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteUserSec(@PathVariable Long id){
+
+
+
+        return ResponseEntity.ok(userSecService.deleteById(id));
+    }
 }

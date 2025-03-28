@@ -5,6 +5,7 @@ import milenyumsoft.plataformaeducativa.repository.IUserSecRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +35,20 @@ public class UserSecService implements IUserSecService{
     }
 
     @Override
-    public void deleteById(Long id) {
-        userSecRepository.deleteById(id);
+    @Transactional
+    public String deleteById(Long id) {
+       Optional<UserSec> userExistente=  this.findById(id);
+        if(userExistente.isPresent()) {
+            UserSec usuarioExistenteExtraido = userExistente.get();
+            userSecRepository.deleteUserSecByIdRoles(usuarioExistenteExtraido.getId());
+            userSecRepository.deleteById(usuarioExistenteExtraido.getId());
+
+            return "Usuario eliminado " + usuarioExistenteExtraido.getUsername() + " correctamente.";
+        }
+
+
+
+        return "Usuario no existe, ingrese un usuario válido.";
     }
 
     @Override

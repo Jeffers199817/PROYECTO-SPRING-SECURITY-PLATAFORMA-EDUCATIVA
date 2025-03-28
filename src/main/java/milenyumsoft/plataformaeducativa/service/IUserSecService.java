@@ -11,7 +11,7 @@ public interface IUserSecService {
     List<UserSec> findAll();
     Optional<UserSec> findById(Long id);
     UserSec save(UserSec userSec);
-    void deleteById(Long id);
+    String deleteById(Long id);
     UserSec update(UserSec userSec);
     String encriptPassword(String password);
 

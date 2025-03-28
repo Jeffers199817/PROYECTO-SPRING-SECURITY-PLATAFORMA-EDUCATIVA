@@ -36,8 +36,13 @@ public class RoleService implements IRoleService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public String deleteById(Long id) {
+        Optional<Role> rolAEliminar = this.findById(id);
+            if(!rolAEliminar.isEmpty()){
             roleRepository.deleteById(id);
+            return "Rol eliminado exitosamente.";}
+
+            return "Rol no existe.";
     }
 
     @Override

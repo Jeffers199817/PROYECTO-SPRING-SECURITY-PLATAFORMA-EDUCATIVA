@@ -19,7 +19,7 @@ public class Role {
 
     //Usamos la lista Set porque no permite repetidos
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="roles_permissions", joinColumns = @JoinColumn(name= "role_id")
             ,inverseJoinColumns = @JoinColumn(name="permission_id"))
     private Set<Permission> permissionList = new HashSet<>();
