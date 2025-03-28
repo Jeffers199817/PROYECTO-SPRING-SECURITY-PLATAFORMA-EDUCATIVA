@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="profesores")
+@Table(name="profesor")
 @DiscriminatorValue("PROFESOR")
 public class Profesor extends UserSec {
 
@@ -20,7 +20,7 @@ public class Profesor extends UserSec {
     private String nombre;
     private String apellido;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "profesor", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     List<Curso> listaCursos = new ArrayList<>();
 
 
