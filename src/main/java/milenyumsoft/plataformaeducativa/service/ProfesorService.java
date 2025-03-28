@@ -38,8 +38,10 @@ public class ProfesorService implements IProfersorService {
     public Optional<Profesor> findByIdProfesor(Long id) {
 
         Optional<Profesor> profesor = profesorRepository.findById(id);
+        System.out.println("Legue aqui");
+        System.out.println("esto es ; " + profesor);
 
-        if(profesor.isPresent()){
+        if(!profesor.isEmpty()){
 
            return profesor;
         }else {
