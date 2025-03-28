@@ -21,7 +21,7 @@ public class EstudianteDTO {
     private String matricula;
     private String nombre;
     private String apellido;
-    private Set<Long> curosId;
+    private Set<Long> cursosId;
 
 
 }

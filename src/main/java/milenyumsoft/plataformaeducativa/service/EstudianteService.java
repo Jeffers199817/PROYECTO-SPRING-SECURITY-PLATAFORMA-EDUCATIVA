@@ -68,7 +68,7 @@ public class EstudianteService implements IEstudianteService {
                  .map(Optional::get)
                  .collect(Collectors.toSet());
 
-         Set<Curso> listCurso = estudianteDTO.getCurosId()
+         Set<Curso> listCurso = estudianteDTO.getCursosId()
                  .stream()
                  .map(cursoId -> cursoService.findByIdCusro(cursoId))
                  .filter(Optional::isPresent)
@@ -82,7 +82,7 @@ public class EstudianteService implements IEstudianteService {
         return estudianteRepository.save(estudianteNuevo);
      }
 
-    }t s
+    }
 
     @Override
     public Estudiante updateEstudiante(Long id, Estudiante estudiante) {
