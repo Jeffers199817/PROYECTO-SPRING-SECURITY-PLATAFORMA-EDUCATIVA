@@ -44,7 +44,8 @@ public class ProfesorService implements IProfersorService {
 
        Profesor profesorExistente= profesorRepository.traerProfesorCodigo(profesor.getCodigoProfesor());
        if(profesorExistente == null){
-         return   userSecRepository.save(profesorExistente);
+           System.out.println("Llegue aquí.");
+         return    profesorRepository.save(profesor);
        }else{
            throw new RuntimeException("Profesor con ese código ya existe, no se puede crear.");
        }

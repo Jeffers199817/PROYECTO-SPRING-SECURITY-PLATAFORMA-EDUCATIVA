@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IProfesorRepository extends JpaRepository {
+public interface IProfesorRepository extends JpaRepository<Profesor,Long> {
 
 
     @Query("SELECT p FROM Profesor p WHERE p.codigoProfesor = :codigoProfesor ")

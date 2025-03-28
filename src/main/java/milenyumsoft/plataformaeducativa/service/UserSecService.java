@@ -1,5 +1,6 @@
 package milenyumsoft.plataformaeducativa.service;
 
+import jdk.swing.interop.SwingInterOpUtils;
 import milenyumsoft.plataformaeducativa.modelo.UserSec;
 import milenyumsoft.plataformaeducativa.repository.IUserSecRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class UserSecService implements IUserSecService{
 
     @Override
     public List<UserSec> findAll() {
+        System.out.println(userSecRepository.findAll());
+        System.out.println("Llegge a lista usersec");
         return userSecRepository.findAll();
     }
 
