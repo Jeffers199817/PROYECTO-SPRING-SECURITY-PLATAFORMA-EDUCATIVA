@@ -26,7 +26,8 @@ import static org.springframework.security.authorization.AuthorityReactiveAuthor
 
 @RestController
 @RequestMapping( "/api/users")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN,PROFESOR')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('PROFESOR')")
 public class UserSecController {
 
     @Autowired
