@@ -9,6 +9,8 @@ import java.util.Set;
 @Entity
 @Setter @Getter
 @AllArgsConstructor @NoArgsConstructor @ToString
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="user_type")
 @Table(name="users")
 public class UserSec {
 

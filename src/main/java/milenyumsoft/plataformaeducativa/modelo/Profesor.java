@@ -3,6 +3,9 @@ package milenyumsoft.plataformaeducativa.modelo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -17,7 +20,8 @@ public class Profesor extends UserSec {
     private String nombre;
     private String apellido;
 
-    @OneToMany
+    @OneToMany()
+    List<Curso> listaCursos = new ArrayList<>();
 
 
 }
