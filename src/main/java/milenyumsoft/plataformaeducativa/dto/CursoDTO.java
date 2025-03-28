@@ -14,6 +14,6 @@ public class CursoDTO {
 
     private String nombre;
     private String descripcion;
-    private double profesorId;
+    private Long profesorId;
     private Set<Long> estuantesId;
 }
