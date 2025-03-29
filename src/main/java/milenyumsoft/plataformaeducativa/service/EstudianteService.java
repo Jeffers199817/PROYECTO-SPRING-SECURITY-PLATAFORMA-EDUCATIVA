@@ -92,21 +92,8 @@ public class EstudianteService implements IEstudianteService {
             // estudianteRepository.save(estudianteNuevo);
              System.out.println("Estudiante guardado: " + estudianteNuevo);
 
+            estudianteRepository.save(estudianteNuevo);
 
-    /*
-
-             private String username;
-             private String password;
-             private boolean enabled;
-             private boolean accountNotExpired;
-             private boolean accountNotLocked;
-             private boolean credentialNotExpired;
-             private Set<Profesor> listProfesor;
-             private String matricula;
-             private String nombre;
-             private String apellido;
-             private Set<Curso> listCursos;
-       */
              Set<String> listProfesor = new HashSet<>();
 
              for(Curso curso: listCurso) {
