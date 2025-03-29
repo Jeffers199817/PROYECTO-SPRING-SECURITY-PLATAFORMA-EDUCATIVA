@@ -26,6 +26,7 @@ public class Curso {
     private Profesor profesor;
 
     @ManyToMany(mappedBy = "cursosList", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<Estudiante> estudianteList = new HashSet<>();
 
 

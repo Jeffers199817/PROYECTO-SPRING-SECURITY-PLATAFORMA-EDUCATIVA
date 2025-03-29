@@ -62,27 +62,44 @@ public class EstudianteService implements IEstudianteService {
          estudianteNuevo.setNombre(estudianteDTO.getNombre());
          estudianteNuevo.setApellido(estudianteDTO.getApellido());
 
-         Set<Role> listRole = estudianteDTO.getRolesId()
-                 .stream()
-                 .map(id -> roleService.findById(id))
-                 .filter(Optional::isPresent)
-                 .map(Optional::get)
-                 .collect(Collectors.toSet());
+         System.out.println("Datos básicos asignados");
 
-         Set<Curso> listCurso = estudianteDTO.getCursosId()
-                 .stream()
-                 .map(cursoId -> cursoService.findById(cursoId))
-                 .filter(Optional::isPresent)
-                 .map(Optional::get)
-                 .collect(Collectors.toSet());
-         System.out.println("Llegue aquí en estudiante");
-         estudianteNuevo.setRoleList(listRole);
-         estudianteNuevo.setCursosList(listCurso);
+         try {
+             Set<Role> listRole = estudianteDTO.getRolesId()
+                     .stream()
+                     .map(id -> roleService.findById(id))
+                     .peek(opt -> System.out.println("Role Optional: " + opt))
+                     .filter(Optional::isPresent)
+                     .map(Optional::get)
+                     .collect(Collectors.toSet());
+             System.out.println("Roles procesados: " + listRole);
 
-         estudianteRepository.save(estudianteNuevo);
-         System.out.println(estudianteNuevo);
+             Set<Curso> listCurso = estudianteDTO.getCursosId()
+                     .stream()
+                     .map(cursoId -> cursoService.findById(cursoId))
+                     .peek(opt -> System.out.println("Curso Optional: " + opt))
+                     .filter(Optional::isPresent)
+                     .map(Optional::get)
+                     .collect(Collectors.toSet());
+             System.out.println("Cursos procesados: " + listCurso);
 
-        return estudianteNuevo;
+             estudianteNuevo.setRoleList(listRole);
+             System.out.println("Roles asignados: " + listRole);
+             estudianteNuevo.setCursosList(listCurso);
+             System.out.println("Cursos asignados: " + listCurso);
+
+            // estudianteRepository.save(estudianteNuevo);
+             System.out.println("Estudiante guardado: " + estudianteNuevo);
+             return estudianteNuevo;
+
+
+         } catch (Exception e) {
+             System.out.println("Error en el proceso: " + e.getMessage());
+             e.printStackTrace();
+             throw e;
+         }
+
+
      }
 
     }

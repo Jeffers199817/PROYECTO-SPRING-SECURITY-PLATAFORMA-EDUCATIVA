@@ -23,7 +23,7 @@ public class Estudiante extends UserSec {
     private String apellido;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name="curso_estudiante",
     joinColumns = @JoinColumn(name="estudiante_id"),
     inverseJoinColumns = @JoinColumn(name="curso_id"))
