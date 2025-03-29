@@ -75,12 +75,14 @@ public class EstudianteService implements IEstudianteService {
                  .filter(Optional::isPresent)
                  .map(Optional::get)
                  .collect(Collectors.toSet());
-
+         System.out.println("Llegue aquí en estudiante");
          estudianteNuevo.setRoleList(listRole);
          estudianteNuevo.setCursosList(listCurso);
 
+         estudianteRepository.save(estudianteNuevo);
+         System.out.println(estudianteNuevo);
 
-        return estudianteRepository.save(estudianteNuevo);
+        return estudianteNuevo;
      }
 
     }

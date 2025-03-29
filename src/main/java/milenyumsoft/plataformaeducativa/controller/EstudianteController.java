@@ -28,6 +28,8 @@ public class EstudianteController {
     @PostMapping("/crear")
     public ResponseEntity<Estudiante> crearEstudiante(@RequestBody EstudianteDTO estudianteDTO){
 
-        return ResponseEntity.ok(estudianteService.createEstudiante(estudianteDTO));
+      Estudiante estudiante=  estudianteService.createEstudiante(estudianteDTO);
+
+        return ResponseEntity.ok(estudiante);
     }
 }
