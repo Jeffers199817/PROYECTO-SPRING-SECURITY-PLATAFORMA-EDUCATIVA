@@ -21,7 +21,7 @@ public class Profesor extends UserSec {
     private String nombre;
     private String apellido;
     @JsonIgnore
-    @OneToMany(mappedBy = "profesor", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @OneToMany(mappedBy = "profesor", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @ToString.Exclude
     List<Curso> listaCursos = new ArrayList<>();
 

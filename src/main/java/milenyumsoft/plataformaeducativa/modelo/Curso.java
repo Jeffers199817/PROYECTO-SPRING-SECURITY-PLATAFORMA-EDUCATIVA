@@ -21,11 +21,11 @@ public class Curso {
     private String nombre;
     private String descripcion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="profesor_id")
     private Profesor profesor;
 
-    @ManyToMany(mappedBy = "cursosList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "cursosList", fetch = FetchType.EAGER)
     @ToString.Exclude
     private Set<Estudiante> estudianteList = new HashSet<>();
 

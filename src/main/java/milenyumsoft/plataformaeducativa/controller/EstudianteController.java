@@ -1,6 +1,7 @@
 package milenyumsoft.plataformaeducativa.controller;
 
 import milenyumsoft.plataformaeducativa.dto.EstudianteDTO;
+import milenyumsoft.plataformaeducativa.dto.EstudianteResponseCreateDTO;
 import milenyumsoft.plataformaeducativa.modelo.Estudiante;
 import milenyumsoft.plataformaeducativa.service.IEstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class EstudianteController {
 
 
     @PostMapping("/crear")
-    public ResponseEntity<Estudiante> crearEstudiante(@RequestBody EstudianteDTO estudianteDTO){
+    public ResponseEntity<EstudianteResponseCreateDTO> crearEstudiante(@RequestBody EstudianteDTO estudianteDTO){
 
-      Estudiante estudiante=  estudianteService.createEstudiante(estudianteDTO);
+      EstudianteResponseCreateDTO estudiante =  estudianteService.createEstudiante(estudianteDTO);
 
         return ResponseEntity.ok(estudiante);
     }

@@ -1,17 +1,17 @@
 package milenyumsoft.plataformaeducativa.service;
 
 import milenyumsoft.plataformaeducativa.dto.EstudianteDTO;
+import milenyumsoft.plataformaeducativa.dto.EstudianteResponseCreateDTO;
 import milenyumsoft.plataformaeducativa.modelo.Curso;
 import milenyumsoft.plataformaeducativa.modelo.Estudiante;
+import milenyumsoft.plataformaeducativa.modelo.Profesor;
 import milenyumsoft.plataformaeducativa.modelo.Role;
 import milenyumsoft.plataformaeducativa.repository.ICursoRepository;
 import milenyumsoft.plataformaeducativa.repository.IEstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +44,8 @@ public class EstudianteService implements IEstudianteService {
     }
 
     @Override
-    public Estudiante createEstudiante(EstudianteDTO estudianteDTO) {
+    public EstudianteResponseCreateDTO createEstudiante(EstudianteDTO estudianteDTO) {
+        EstudianteResponseCreateDTO estudianteResponseCreateDTO = new EstudianteResponseCreateDTO();
 
       Estudiante estudianteExistente =   estudianteRepository.findEstudianteByNombre(estudianteDTO.getNombre());
      if( estudianteExistente !=null ) {
@@ -90,7 +91,50 @@ public class EstudianteService implements IEstudianteService {
 
             // estudianteRepository.save(estudianteNuevo);
              System.out.println("Estudiante guardado: " + estudianteNuevo);
-             return estudianteNuevo;
+
+
+    /*
+
+             private String username;
+             private String password;
+             private boolean enabled;
+             private boolean accountNotExpired;
+             private boolean accountNotLocked;
+             private boolean credentialNotExpired;
+             private Set<Profesor> listProfesor;
+             private String matricula;
+             private String nombre;
+             private String apellido;
+             private Set<Curso> listCursos;
+       */
+             Set<String> listProfesor = new HashSet<>();
+
+             for(Curso curso: listCurso) {
+                 Profesor profe = curso.getProfesor();
+                 listProfesor.add(profe.getNombre());
+             }
+
+             Set<String> listCursos = new HashSet<>();
+
+             for(Curso cur : listCurso){
+
+                 listCursos.add(cur.getNombre());
+             }
+
+             estudianteResponseCreateDTO.setUsername(estudianteNuevo.getUsername());
+             estudianteResponseCreateDTO.setPassword(estudianteNuevo.getPassword());
+             estudianteResponseCreateDTO.setEnabled(estudianteNuevo.isEnabled());
+             estudianteResponseCreateDTO.setAccountNotExpired(estudianteNuevo.isAccountNotExpired());
+             estudianteResponseCreateDTO.setAccountNotLocked(estudianteNuevo.isAccountNotLocked());
+             estudianteResponseCreateDTO.setCredentialNotExpired(estudianteNuevo.isCredentialNotExpired());
+             estudianteResponseCreateDTO.setListProfesor(listProfesor);
+             estudianteResponseCreateDTO.setMatricula(estudianteNuevo.getMatricula());
+             estudianteResponseCreateDTO.setNombre(estudianteNuevo.getNombre());
+             estudianteResponseCreateDTO.setApellido(estudianteNuevo.getApellido());
+             estudianteResponseCreateDTO.setListCursos(listCursos);
+
+
+             return estudianteResponseCreateDTO;
 
 
          } catch (Exception e) {
