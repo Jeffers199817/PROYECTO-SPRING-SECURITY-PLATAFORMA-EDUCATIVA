@@ -2,6 +2,7 @@ package milenyumsoft.plataformaeducativa.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import milenyumsoft.plataformaeducativa.dto.CursoDTO;
+import milenyumsoft.plataformaeducativa.dto.CursoResponseDTO;
 import milenyumsoft.plataformaeducativa.modelo.Curso;
 import milenyumsoft.plataformaeducativa.repository.ICursoRepository;
 import milenyumsoft.plataformaeducativa.service.ICursoService;
@@ -34,7 +35,7 @@ public class CursoController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Curso> crearCurso(@RequestBody CursoDTO cursoDTO){
+    public ResponseEntity<CursoResponseDTO> crearCurso(@RequestBody CursoDTO cursoDTO){
      return ResponseEntity.ok(cursoService.createCurso(cursoDTO));
     }
 }
