@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 //@PreAuthorize("hasRole('ADMIN')")
-@PreAuthorize("hasRole('ADMIN') or hasRole('PROFESOR')")
+//@PreAuthorize("hasRole('ADMIN') or hasRole('PROFESOR')")
 @RequestMapping ( "/api/permission")
 public class PermissionController {
 
