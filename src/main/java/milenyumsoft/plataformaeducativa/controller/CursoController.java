@@ -34,8 +34,11 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+
+
     @PostMapping("/crear")
     public ResponseEntity<CursoResponseDTO> crearCurso(@RequestBody CursoDTO cursoDTO){
+System.out.println("this is methos created a new student");
      return ResponseEntity.ok(cursoService.createCurso(cursoDTO));
     }
 }
